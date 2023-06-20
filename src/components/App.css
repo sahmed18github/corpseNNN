@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    color: #ffffff; /* White text */
+    margin: 0;
+    padding: 0;
+}
+
+
+.sentence {
+    display: inline-block;
+    margin: 5%;
+	margin-left: 0%;
+    color: #f0f0f4;
+    background-color: #2a323d;
+    padding: 10%;
+    border-radius: 5px;
+}
+
+.sentence_past {
+    display: inline-block;
+    margin: 5px;
+    color: #000000; /* Black text */
+    background-color: #c5cfdb; /* Light blue */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.content {
+    margin: 20px;
+}
+
+h1 {
+	text-align: center;
+	color: #f0f0f4;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 45px;
+	margin: 10px 0;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+h2 {
+    margin: 20px 0;
+    text-align: center;
+    color: #f0f0f4;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+h3 {
+    margin: 20px 0;
+    text-align: center;
+    color: #2a323d;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #f0f0f4;
+    color: #ffffff; /* White text */
+}
+
+.footer {
+    background-color: #2a323d; /* Dark blue */
+    color: #f0f0f4;
+    padding: 20px;
+    text-align: center;
+}
+
+.all_encomp {
+    min-height: 100vh;
+    background-color: #2a323d; /* Dark grey background */
+}
+
+.past_stories {
+    background-color: #c5cfdb; /* Light blue background */
+    padding-top: 20px;
+	border-radius: 20px;
+}
+
+.loading-text {
+	font-size: 50px; /* Adjust the font size as needed */
+	position: fixed; /* Position the text relative to the viewport */
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+  }
+
+  .section-divider {
+	border: none;
+	border-top: 1px solid #5e5e62; /* Change the color code to your desired color */
+	margin: 20px 0;
+  }
+  
+  
