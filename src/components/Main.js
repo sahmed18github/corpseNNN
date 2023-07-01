@@ -53,7 +53,7 @@ class Main extends Component {
         </div>
         <br>
         </br>
-        <hr class="section-divider"></hr>
+        <hr className="section-divider"></hr>
         <br>
         </br>
         <h2>Add a Sentence</h2>
@@ -135,7 +135,7 @@ class Main extends Component {
         </table>
         <br>
         </br>
-        <hr class="section-divider"></hr>
+        <hr className="section-divider"></hr>
         <br>
         </br>
         <h2>
@@ -187,6 +187,7 @@ class Main extends Component {
 
   <button
     onClick={(event) => {
+      const price = window.web3.utils.toWei("0.000007", 'Ether');
       this.props.voteEnd();
     }}
     className="btn btn-primary"
@@ -213,16 +214,22 @@ class Main extends Component {
        <h3>
           Past Stories
         </h3>
+        
         <div ref="setter" className="sentence_past" style={{ whiteSpace: "pre-line", color: "#2a323d" }}>
           {this.props.historicalProducts.map((historicalProducts, index) => (
 
-          <div key={index}>{historicalProducts.fullS}</div>
-          ))}   
+          <div key={index}>{historicalProducts.fullS}
+          
+          </div>
+          ))}  
+           
         </div>
+        
           <h3>
           Authors
           </h3>
           <div>
+            
           {this.props.historicalProducts.map((historicalProducts, index) => (
 
           <div key={index}>{historicalProducts.authors}</div>
@@ -234,7 +241,61 @@ class Main extends Component {
         </div>
 
       </div>
+      <br>
+        </br>
+        <h2>Story Marketplace</h2>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Story</th>
+              <th scope="col">Price</th>
+              <th scope="col">Owner</th>
+              <th scope="col">Authors</th>
+              <th scope="col"></th>
+
+            </tr>
+          </thead>
+          <tbody id="productList">
+         {this.props.historicalProducts.map((historicalProduct, index) => (
+        <tr key={index}>
+          
+          <td>{historicalProduct.fullS}</td>
+          <td>"0.0000008"</td>
+          <td> "nn"</td>
+          <td>{historicalProduct.authors}</td>
+          <td></td>
+        </tr>
+      ))}
+          </tbody>
+          {/* <tbody id="productList">
+          { this.props.products.map((product, key) => {  
+            	this.props.getArr(product.id.toNumber());         
+              if (!product.purchased) {
+                return <Entry key={key} product={product} name={product.name} upvotes={product.upvotes} purchaseProduct ={this.props.purchaseProduct} getArr ={this.props.getArr} data={this.state.myArrContent}/>;
+                
+              } else {
+                return null;
+              }
+
+          })}
+          </tbody> */}
+        </table>
+        <br>
+        </br>
+        <hr className="section-divider"></hr>
+        <br>
+        </br>
+        <hr className="section-divider"></hr>
+        <br></br>
+        <hr className="section-divider"></hr>
+        <br>
+        </br>
+        <br>
+        </br><br>
+        </br>
       </div>
+
+      
     );
   }
 }

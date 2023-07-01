@@ -1,8 +1,17 @@
 pragma solidity ^0.8.0;
 
+
+//TODO
+//Add another table with stories, authors, buy button
+//convert contributors to string array and get the size
+//get the buyer address
+//transfer the ownership
+//split the sale
+//display the buy button
 contract Marketplace {
 	string public name;
 	uint public productCount = 0;
+	uint public storyCount = 0;
 	uint public vote_end = 0;
 	uint public SentenceCount = 0;
 	uint public num = 0;
@@ -28,6 +37,8 @@ contract Marketplace {
 	}
 	struct CompleteStory {
 		string fullS;
+		uint price;
+		bool purchased;
 		string authors;
 	}
 
@@ -36,6 +47,14 @@ contract Marketplace {
 		string name,
 		string[3] authors	
 	);
+
+	event PriceAdded(
+		string fullS,
+		uint price,
+		bool purchased,
+		string authors
+		);
+
 	event ProductCreated(
 		uint id,
 		string name,
@@ -156,17 +175,19 @@ contract Marketplace {
 		voters_end[vote_end] = msg.sender;
 		vote_end++;
 		Sentence memory _sentence;
-		SentenceCount = productCount;
 		//transfer to past stories
 		if(vote_end >= 1){
 			Product memory _product;
-			for(uint i = 1; i <= SentenceCount; i++){
+			SentenceCount = 0;
+			for(uint i = 1; i <= productCount; i++){
 				_product = products[i];
 				if(_product.upvotes >= 2){
 					//move products as sentences in the story
 					_sentence.name = _product.name;
 					_sentence.authors = _product.contributors;
-					story[i] = _sentence;
+					SentenceCount++;
+					story[SentenceCount] = _sentence;
+					
 					//make the first sentence have all the authors
 					emit StoryCreated(_sentence.name, _sentence.authors);
 				}
@@ -185,11 +206,6 @@ contract Marketplace {
 					store_authors = concatenate(store_authors, concatenate(" ", temp[j]));
 				}
 			}
-			// //return unrepeated addresses
-			// const size = 3*SentenceCount ; 
-			// string [size] memory array_authors = authors;
-			// = getUniqueStrings(authors);
-
 			// //concate all sentences in one string
 			string memory full_story = "";
 			string memory space = " ";
@@ -201,6 +217,8 @@ contract Marketplace {
 			//add the story string
 			products_historical[historyProdCount].fullS = full_story;
 			products_historical[historyProdCount].authors = store_authors;
+			products_historical[historyProdCount].price = 2;
+
 			//add the authors
 			historyProdCount++; 
 			
@@ -311,16 +329,30 @@ contract Marketplace {
 			emit ProductPurchased(productCount, _product.name, _product.price, _product.owner, false, _product.upvotes, _product.contributors);
 			//emit ProductCreated(productCount, _product.name, _product.price, _product.owner, false, _product.upvotes, _product.contributors);
 		}	
-		// pay the seller by sending them ether
-		//address(_seller).transfer(msg.value);
-		// trigger an event
-		//emit prodict(productCount, _product.name, _product.price, _product.owner, false, _product.upvotes, _product.contributors);
-		//createProduct(_product.name, _product.price, _product.upvotes, _product.contributors);
-	
-		// if(_product.upvotes < 2){
-		// 	createProduct(_product.name, _product.price, _product.upvotes, _product.contributors);
-		// }
-		//products[_id] = _product;
 	}
 
-}
+
+
+
+// function sellStory(string memory _name, uint _price,string memory authors) public {
+// 	require(bytes(_name).length > 0);
+// 		// require a valid price
+// 	require(_price > 0);
+
+// // }
+// function createStory(uint id, uint _price) public {
+// 		// require a name
+// 		//require(bytes(_name).length > 0);
+// 		// require a valid price
+// 		require(_price > 0);
+// 		// make sure params good
+// 		// inc products count
+// 		//storyCount++;
+// 		// //add owner to contributors
+// 		// contributors[upvotes] = addressToString(msg.sender);
+// 		// create the product
+// 		products_historical[id].price = _price;
+// 		// trigger an event	
+// 		emit PriceAdded(products_historical[id].fullS, _price, false, products_historical[id].authors);
+// 	}
+ }

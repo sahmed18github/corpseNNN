@@ -88,6 +88,7 @@ class App extends Component {
     this.state = {
       account: '',
       productCount: 0,
+      SentenceCount: 0,
       products: [],
       historyProdCount: 0,
       products_historical: [],
@@ -102,6 +103,7 @@ class App extends Component {
     this.getArr = this.getArr.bind(this)
     this.createVoteEnd = this.createVoteEnd.bind(this)
     this.getCurrentVote = this.getCurrentVote.bind(this)
+    //this.createStory = this.createStory.bind(this)
   }
 
   createProduct(name, price, upvotes, contributors) {
@@ -129,7 +131,18 @@ class App extends Component {
     
   }
 
-  createVoteEnd() {
+  // createStory(id, price) {
+  //   this.setState({ loading: true })
+  //   this.state.marketplace.methods.createStory(id, price)
+  //   .once('confirmation', (confirmation) => {
+  //     this.setState({ loading: false }, () => {
+  //       // Refresh the page after loading is set to false
+  //       //window.location.reload();
+  //     });
+  //   });
+  // }
+
+  createVoteEnd(price) {
     this.setState({ loading: true })
     this.state.marketplace.methods.createVoteEnd().send({ from: this.state.account })
     .once('confirmation', (confirmation) => {
@@ -181,6 +194,7 @@ class App extends Component {
                   voteEnd={this.createVoteEnd}
                   increase={this.increaseVotes}
                   getVote={this.getCurrentVote}
+                  //createStory={this.createStory}
                   />
               }
             </main>
@@ -191,7 +205,6 @@ class App extends Component {
 }
 
 export default App;
-
 
 
 

@@ -10,11 +10,11 @@ body {
 
 .sentence {
     display: inline-block;
-    margin: 5%;
+    margin: 5px;
 	margin-left: 0%;
     color: #f0f0f4;
     background-color: #2a323d;
-    padding: 10%;
+    padding: 0.2%;
     border-radius: 5px;
 }
 

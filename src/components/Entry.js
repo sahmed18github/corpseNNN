@@ -79,6 +79,9 @@ class Entry extends Component {
 		 
 	 </tr>: null)
     );
+
+
+	
   }
 }
 
