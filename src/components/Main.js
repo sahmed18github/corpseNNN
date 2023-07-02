@@ -66,10 +66,10 @@ class Main extends Component {
     this.props.createProduct(name, price, 0, my_val);
   }}
   style={{
-    display: 'flex',  // Add flex display to the form container
-    justifyContent: 'space-between',  // Add space between form and button
-    //maxWidth: '800px',  // Set the maximum width of the form
-    margin: '0 auto',  // Center the form horizontally
+    display: 'flex',  
+    justifyContent: 'space-between', 
+    maxWidth: '100%',
+    margin: '0 auto',
   }}
 >
   <div className="form-group mr-sm-2" style={{ flex: '1' }}>
@@ -86,18 +86,18 @@ class Main extends Component {
     type="submit"
     className="btn btn-primary"
     style={{
-      marginLeft: '10px',  // Add margin to create space between form and button
-      //marginTop: '10px',
-      padding: '6px 12px',
+      marginLeft: '1%',  // Add margin to create space between form and button
+      //marginTop: '1%',
+      padding: '0.3% 0.5%',
       background: '#f2f2f2',
       color: '#333',
       border: '4px solid #599ee9',
-      borderRadius: '4px',
-      fontSize: '14px',
+      borderRadius: '3px',
+      fontSize: '1.1vw', // Adjust the percentage value as needed
       cursor: 'pointer',
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      letterSpacing: '1px',
+      letterSpacing: '0.1vw', // Adjust the percentage value as needed
       height: '100%',
     }}
   >
@@ -109,15 +109,16 @@ class Main extends Component {
         <br>
         </br>
         <h2>Buy Sentence</h2>
+        
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Sentence</th>
-              <th scope="col">Price</th>
-              <th scope="col">Upvotes</th>
-              <th scope="col">Owner</th>
-              <th scope="col">Contributors</th>
-              <th scope="col"></th>
+              <th style={{ width: '30%' }} scope="col">Sentence</th>
+              <th style={{ width: '12%' }} scope="col">Price</th>
+              <th style={{ width: '8%' }} scope="col">Upvotes</th>
+              <th style={{ width: '20%' }} scope="col">Owner</th>
+              <th style={{ width: '20%' }} scope="col">Contributors</th>
+              <th style={{ width: '15%' }} scope="col"></th>
             </tr>
           </thead>
           <tbody id="productList">
@@ -126,7 +127,7 @@ class Main extends Component {
               if (!product.purchased) {
                 return <Entry key={key} product={product} name={product.name} upvotes={product.upvotes} purchaseProduct ={this.props.purchaseProduct} getArr ={this.props.getArr} data={this.state.myArrContent}/>;
                 
-              } else {
+              } else { 
                 return null;
               }
 
@@ -161,9 +162,9 @@ class Main extends Component {
             <div>
   <span
     dangerouslySetInnerHTML={{ __html: this.props.votez }}
-    style={{ fontWeight: 'bold', fontSize: '25px'}}
+    style={{ fontWeight: 'bold', fontSize: '2vw'}}
   ></span>
-  <span style={{ fontWeight: 'bold', fontSize: '25px' }}>
+  <span style={{ fontWeight: 'bold', fontSize: '2vw' }}>
     {this.props.votez == 1 ? ' Vote' : ' Votes'} to End
   </span>
 </div>
@@ -192,17 +193,19 @@ class Main extends Component {
     }}
     className="btn btn-primary"
     style={{
-      marginTop: '10px',
-      padding: '6px 12px',
+      marginLeft: '0%',  // Add margin to create space between form and button
+      //marginTop: '1%',
+      padding: '0.3% 0.5%',
       background: '#f2f2f2',
       color: '#333',
       border: '4px solid #599ee9',
-      borderRadius: '4px',
-      fontSize: '14px',
+      borderRadius: '3px',
+      fontSize: '1.1vw', // Adjust the percentage value as needed
       cursor: 'pointer',
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      letterSpacing: '1px',
+      letterSpacing: '0.1vw', // Adjust the percentage value as needed
+      height: '100%',
     }}
   >
     Vote to End
@@ -210,7 +213,7 @@ class Main extends Component {
 </div>
 
 
-<div className="content past_stories" style={{ width: "100%", marginLeft: "0px", fontFamily: "Arial" }}>
+<div className="content past_stories" style={{ width: "100%", marginLeft: "0%", fontFamily: "Arial" }}>
        <h3>
           Past Stories
         </h3>
@@ -236,7 +239,7 @@ class Main extends Component {
           ))}
 
           </div>
-        <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#2a323d", fontWeight: "bold", marginRight: "5px"}}>
+        <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#2a323d", fontWeight: "bold", marginRight: "1"}}>
           Beta V1.0, UEP Lab Tufts University  
         </div>
 

@@ -57,18 +57,20 @@ class Entry extends Component {
 		   }}
 		   className="btn btn-primary"
 		   style={{
-			 marginTop: '0px',
-			 padding: '4px 8px',
-			 background: '#f2f2f2',
-			 color: '#333',
-			 border: '4px solid #599ee9',
-			 borderRadius: '4px',
-			 fontSize: '14px',
-			 cursor: 'pointer',
-			 textTransform: 'uppercase',
-			 fontWeight: 'bold',
-			 letterSpacing: '1px',
-		   }}
+				marginLeft: '1%',
+				//marginTop: '1%',
+				padding: '3% 10%',
+				background: '#f2f2f2',
+				color: '#333',
+				border: '4px solid #599ee9',
+				borderRadius: '3px',
+				fontSize: '1.1vw', // Adjust the percentage value as needed
+				cursor: 'pointer',
+				textTransform: 'uppercase',
+				fontWeight: 'bold',
+				letterSpacing: '0.1vw', // Adjust the percentage value as needed
+				height: '100%',
+		  }}  
 		 >
 		   Buy
 		 </button>
