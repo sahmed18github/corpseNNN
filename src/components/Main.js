@@ -188,8 +188,8 @@ class Main extends Component {
 
   <button
     onClick={(event) => {
-      const price = window.web3.utils.toWei("0.000007", 'Ether');
-      this.props.voteEnd();
+      const price = window.web3.utils.toWei("0.000009", 'Ether');
+      this.props.voteEnd(price);
     }}
     className="btn btn-primary"
     style={{
@@ -246,6 +246,7 @@ class Main extends Component {
       </div>
       <br>
         </br>
+        
         <h2>Story Marketplace</h2>
         <table className="table">
           <thead>
@@ -263,10 +264,21 @@ class Main extends Component {
         <tr key={index}>
           
           <td>{historicalProduct.fullS}</td>
-          <td>"0.0000008"</td>
-          <td> "nn"</td>
+          <td>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
+          <td> {historicalProduct.owner} </td>
           <td>{historicalProduct.authors}</td>
-          <td></td>
+          <td> 
+              { !historicalProduct.purchased
+                ? <button 
+             name = {historicalProduct.fullS}
+             value = {historicalProduct.price}
+             onClick = {(event) => {
+              this.props.purchaseStory(event.target.name, event.target.value)
+             }}
+              >
+              Buy </button>
+              : null }
+              </td>
         </tr>
       ))}
           </tbody>
@@ -285,12 +297,12 @@ class Main extends Component {
         </table>
         <br>
         </br>
-        <hr className="section-divider"></hr>
+        
         <br>
         </br>
-        <hr className="section-divider"></hr>
+        
         <br></br>
-        <hr className="section-divider"></hr>
+       
         <br>
         </br>
         <br>

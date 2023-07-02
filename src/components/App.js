@@ -103,7 +103,7 @@ class App extends Component {
     this.getArr = this.getArr.bind(this)
     this.createVoteEnd = this.createVoteEnd.bind(this)
     this.getCurrentVote = this.getCurrentVote.bind(this)
-    //this.createStory = this.createStory.bind(this)
+    this.purchaseStory = this.purchaseStory.bind(this)
   }
 
   createProduct(name, price, upvotes, contributors) {
@@ -117,10 +117,10 @@ class App extends Component {
     });
   }
 
-  purchaseProduct(id, price) {
+  purchaseProduct(_id, price) {
     this.setState({ loading: true })
     
-    this.state.marketplace.methods.purchaseProduct(id).send({ from: this.state.account, value: price, gasLimit: 5000000})
+    this.state.marketplace.methods.purchaseProduct(_id).send({ from: this.state.account, value: price, gasLimit: 5000000})
     .once('confirmation', (confirmation) => {
       this.setState({ loading: false }, () => {
         // Refresh the page after loading is set to false
@@ -131,20 +131,27 @@ class App extends Component {
     
   }
 
-  // createStory(id, price) {
-  //   this.setState({ loading: true })
-  //   this.state.marketplace.methods.createStory(id, price)
+  purchaseStory(id, price) {
+    this.setState({ loading : true })
+    this.state.marketplace.methods.purchaseStory(id).send({from: this.state.account, value: price})
+    .once('receipt', (receipt) => {
+      this.setState({loading: false})
+    })
+  }
+  // createStory(storyname, price) {
+  //   this.setState({ loading : true })
+  //   this.state.marketplace.methods.createStory(storyname, price).send({from: this.state.account})
   //   .once('confirmation', (confirmation) => {
   //     this.setState({ loading: false }, () => {
   //       // Refresh the page after loading is set to false
-  //       //window.location.reload();
+  //       window.location.reload();
   //     });
   //   });
   // }
 
   createVoteEnd(price) {
     this.setState({ loading: true })
-    this.state.marketplace.methods.createVoteEnd().send({ from: this.state.account })
+    this.state.marketplace.methods.createVoteEnd(price).send({ from: this.state.account })
     .once('confirmation', (confirmation) => {
       this.setState({ loading: false }, () => {
         // Refresh the page after loading is set to false
@@ -194,7 +201,9 @@ class App extends Component {
                   voteEnd={this.createVoteEnd}
                   increase={this.increaseVotes}
                   getVote={this.getCurrentVote}
-                  //createStory={this.createStory}
+                  purchaseStory ={this.purchaseStory}
+
+                 // createStory={this.createStory}
                   />
               }
             </main>

@@ -11,7 +11,6 @@ pragma solidity ^0.8.0;
 contract Marketplace {
 	string public name;
 	uint public productCount = 0;
-	uint public storyCount = 0;
 	uint public vote_end = 0;
 	uint public SentenceCount = 0;
 	uint public num = 0;
@@ -36,24 +35,27 @@ contract Marketplace {
 		string [3] authors;
 	}
 	struct CompleteStory {
+		uint id;
 		string fullS;
 		uint price;
 		bool purchased;
+		address payable owner;
 		string authors;
 	}
 
 	event StoryCreated(
-		
 		string name,
 		string[3] authors	
 	);
 
-	event PriceAdded(
+	event StoryPurchased(
+		uint id,
 		string fullS,
 		uint price,
 		bool purchased,
+		address payable owner,
 		string authors
-		);
+	);
 
 	event ProductCreated(
 		uint id,
@@ -117,6 +119,70 @@ contract Marketplace {
 //     return strConcat(_a, _b, "", "", "");
 // }
 
+	function removeDuplicateWords(string memory input) public pure returns (string memory) {
+        string[] memory words = split(input, " ");
+        string memory output;
+        
+        for(uint i = 0; i < words.length; i++) {
+            bool isDuplicate = false;
+            
+            for(uint j = i + 1; j < words.length; j++) {
+                if (keccak256(abi.encodePacked(words[i])) == keccak256(abi.encodePacked(words[j]))) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            
+            if (!isDuplicate) {
+                output = string(abi.encodePacked(output, words[i], " "));
+            }
+        }
+        
+        return output;
+    }
+    
+    function split(string memory input, string memory delimiter) private pure returns (string[] memory) {
+        bytes memory inputBytes = bytes(input);
+        bytes memory delimiterBytes = bytes(delimiter);
+        uint count = 1;
+        
+        for(uint i = 0; i < inputBytes.length; i++) {
+            if (inputBytes[i] == delimiterBytes[0]) {
+                count++;
+            }
+        }
+        
+        string[] memory parts = new string[](count);
+        uint startIndex = 0;
+        count = 0;
+        
+        for(uint i = 0; i < inputBytes.length; i++) {
+            if (inputBytes[i] == delimiterBytes[0]) {
+                parts[count] = substring(input, startIndex, i);
+                startIndex = i + 1;
+                count++;
+            }
+        }
+        
+        parts[count] = substring(input, startIndex, inputBytes.length);
+        
+        return parts;
+    }
+    
+    function substring(string memory input, uint startIndex, uint endIndex) private pure returns (string memory) {
+        bytes memory inputBytes = bytes(input);
+        bytes memory result = new bytes(endIndex - startIndex);
+        
+        for(uint i = startIndex; i < endIndex; i++) {
+            result[i - startIndex] = inputBytes[i];
+        }
+        
+        return string(result);
+    }
+
+
+
+
 	function concatenate(string memory a, string memory b) public pure returns (string memory) {
         bytes memory aa = bytes(a);
         bytes memory bb = bytes(b);
@@ -165,7 +231,7 @@ contract Marketplace {
 		return string(str);
 	}
 
-	function createVoteEnd() public payable {
+	function createVoteEnd(uint price) public {
     //string storage senderString = toString(msg.sender);
 	//check not similar voters
     for (uint i = 0; i < vote_end; i++) {
@@ -213,14 +279,14 @@ contract Marketplace {
 			for (uint j = 1; j <= SentenceCount; j++) {
 				full_story = concatenate(full_story, concatenate(space, story[j].name));
 			}
-			
-			//add the story string
-			products_historical[historyProdCount].fullS = full_story;
-			products_historical[historyProdCount].authors = store_authors;
-			products_historical[historyProdCount].price = 2;
-
 			//add the authors
 			historyProdCount++; 
+			//add the story string
+			address addr = address(0x59c5505100F8107E9b59AE0B7977c10D27A0476E);
+
+			products_historical[historyProdCount] = CompleteStory(historyProdCount,
+			full_story, price , false, payable(addr), removeDuplicateWords(store_authors));
+			
 			
 			//products_historical = strConcat(products_historical, "\n\n");
 			resetProducts();
@@ -230,10 +296,6 @@ contract Marketplace {
 		} 
 		
 		emit upVote(vote_end);
-	}
-	function getAuthors() public view {
-
-
 	}
 
 	function getCurrentVote() public view returns (uint) {
@@ -339,20 +401,48 @@ contract Marketplace {
 // 		// require a valid price
 // 	require(_price > 0);
 
-// // }
-// function createStory(uint id, uint _price) public {
+// // // }
+// function createStory(string memory storyname, uint price) public {
 // 		// require a name
-// 		//require(bytes(_name).length > 0);
+// 		require(bytes(name).length > 0);
 // 		// require a valid price
-// 		require(_price > 0);
-// 		// make sure params good
-// 		// inc products count
-// 		//storyCount++;
+// 		require(price > 0);
+// 		storyCount++;
 // 		// //add owner to contributors
 // 		// contributors[upvotes] = addressToString(msg.sender);
 // 		// create the product
-// 		products_historical[id].price = _price;
+		
+// 		//products_historical[storyCount].price = msg.sender;
+// 		products_historical[storyCount].purchased = false;
 // 		// trigger an event	
-// 		emit PriceAdded(products_historical[id].fullS, _price, false, products_historical[id].authors);
-// 	}
- }
+// 		emit StoryCreatedwPrice(products_historical[storyCount].fullS, price, false);
+// }
+
+
+    function purchaseStory(uint _id) public payable {
+    // Fetch the product
+    CompleteStory memory H_story = products_historical[_id];
+    
+    // Fetch the owner
+    address payable _seller = payable(msg.sender); // Assign msg.sender to _seller
+    
+    // Require that there is enough Ether in the transaction
+    require(msg.value >= H_story.price);
+    // Require that the product has not been purchased already
+    require(!H_story.purchased);
+    // Require that the buyer is not the seller
+    require(_seller != msg.sender);
+    // Mark as purchased
+    H_story.purchased = true;
+	// Pay the seller by sending them Ether
+	_seller.transfer(msg.value);
+    H_story.owner = payable(msg.sender);
+    // Update the product
+    products_historical[_id] = H_story;
+   
+    
+    // Trigger an event
+    emit StoryPurchased(_id, H_story.fullS, H_story.price, true,  H_story.owner, H_story.authors);
+}
+
+}
