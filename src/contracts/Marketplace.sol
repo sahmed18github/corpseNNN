@@ -421,28 +421,30 @@ contract Marketplace {
 
     function purchaseStory(uint _id) public payable {
     // Fetch the product
-    CompleteStory memory H_story = products_historical[_id];
-    
-    // Fetch the owner
-    address payable _seller = payable(msg.sender); // Assign msg.sender to _seller
-    
-    // Require that there is enough Ether in the transaction
-    require(msg.value >= H_story.price);
-    // Require that the product has not been purchased already
-    require(!H_story.purchased);
-    // Require that the buyer is not the seller
-    require(_seller != msg.sender);
-    // Mark as purchased
-    H_story.purchased = true;
-	// Pay the seller by sending them Ether
-	_seller.transfer(msg.value);
-    H_story.owner = payable(msg.sender);
-    // Update the product
-    products_historical[_id] = H_story;
-   
-    
-    // Trigger an event
-    emit StoryPurchased(_id, H_story.fullS, H_story.price, true,  H_story.owner, H_story.authors);
+		CompleteStory memory H_story = products_historical[_id];
+		
+		// Fetch the owner
+		//ddress payable _seller = payable(msg.sender); // Assign msg.sender to _seller
+		address payable _seller = H_story.owner;
+        H_story.owner = payable(msg.sender);
+		// Require that there is enough Ether in the transaction
+		require(H_story.id > 0 && H_story.id <= historyProdCount);
+		require(msg.value >= H_story.price);
+		// Require that the product has not been purchased already
+		require(!H_story.purchased);
+		// Require that the buyer is not the seller
+		require(_seller != msg.sender);
+		// Mark as purchased
+		H_story.purchased = true;
+		// Pay the seller by sending them Ether
+		_seller.transfer(msg.value);
+		//H_story.owner = payable(msg.sender);
+		// Update the product
+		products_historical[_id] = CompleteStory(_id, H_story.fullS, H_story.price, true,  H_story.owner, H_story.authors);
+	
+		
+		// Trigger an event
+		emit StoryPurchased(_id, H_story.fullS, H_story.price, true,  H_story.owner, H_story.authors);
 }
 
 }

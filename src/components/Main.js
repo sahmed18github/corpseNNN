@@ -255,49 +255,45 @@ class Main extends Component {
             <th style={{ width: '10%' }} scope="col"></th>
             </tr>
           </thead>
+          
           <tbody id="productList" >
-            {this.props.historicalProducts.map((historicalProduct, index) => {
-              if (index === 0 && !historicalProduct.fullS) {
-                return null;
-              }
-              return (
-                <tr key={index}>
-                  <td>{historicalProduct.fullS}</td>
-                  <td>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
-                  <td>{historicalProduct.owner}</td>
-                  <td>{historicalProduct.authors}</td>
-                  <td>
-                    {!historicalProduct.purchased && (
-                      <button
-                        name={historicalProduct.fullS}
-                        value={historicalProduct.price}
-                        onClick={(event) => {
-                          this.props.purchaseStory(event.target.name, event.target.value);
-                        }}
-                        style={{
-                          marginLeft: '1%',
-                          //marginTop: '1%',
-                          padding: '3% 10%',
-                          background: '#f2f2f2',
-                          color: '#333',
-                          border: '4px solid #599ee9',
-                          borderRadius: '3px',
-                          fontSize: '1.1vw',
-                          cursor: 'pointer',
-                          textTransform: 'uppercase',
-                          fontWeight: 'bold',
-                          letterSpacing: '0.1vw', 
-                          height: '100%',
-                        }}  
-                      >
-                        Buy
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
+          {this.props.historicalProducts.map((historicalProduct, index) => (
+        <tr key={index}>
+          <td>{historicalProduct.id.toString()}</td>
+          <td>{historicalProduct.fullS}</td>
+          <td>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
+          <td> {historicalProduct.owner} </td>
+          <td>{historicalProduct.authors}</td>
+          <td> 
+              { !historicalProduct.purchased
+                ? <button 
+             id = {historicalProduct.id}
+             value = {historicalProduct.price}
+             onClick = {(event) => {
+              this.props.purchaseStory(event.target.id, event.target.value)
+             }}
+              >
+               {/* style={{
+                  marginLeft: '1%',
+                  //marginTop: '1%',
+                  padding: '3% 10%',
+                  background: '#f2f2f2',
+                  color: '#333',
+                  border: '4px solid #599ee9',
+                  borderRadius: '3px',
+                  fontSize: '1.1vw',
+                  cursor: 'pointer',
+                  textTransform: 'uppercase',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.1vw', 
+                  height: '100%',
+                }}   */}
+            Buy </button>
+            : null }
+          </td>
+        </tr>
+      ))}
+  </tbody>
 
 
 

@@ -59,7 +59,7 @@ class App extends Component {
         })
       }
       //load stories
-      for (var i = 0; i <= historyProdCount; i++) {
+      for (var i = 1; i <= historyProdCount; i++) {
         const story = await marketplace.methods.products_historical(i).call()
         this.setState({
           products_historical: [...this.state.products_historical, story]
@@ -98,13 +98,12 @@ class App extends Component {
       loading: true,
 
     }
-
-    this.createProduct = this.createProduct.bind(this)
     this.purchaseProduct = this.purchaseProduct.bind(this)
+    this.createProduct = this.createProduct.bind(this)
     this.getArr = this.getArr.bind(this)
     this.createVoteEnd = this.createVoteEnd.bind(this)
     this.getCurrentVote = this.getCurrentVote.bind(this)
-    //this.createStory = this.createStory.bind(this)
+    this.purchaseStory = this.purchaseStory.bind(this)
   }
 
   createProduct(name, price, upvotes, contributors) {
@@ -117,7 +116,6 @@ class App extends Component {
       });
     });
   }
-
   purchaseProduct(id, price) {
     this.setState({ loading: true })
     
@@ -130,6 +128,18 @@ class App extends Component {
     });
     
     
+  }
+
+
+  purchaseStory(_id, price) {
+    this.setState({ loading : true })
+    this.state.marketplace.methods.purchaseStory(_id).send({ from: this.state.account, value: price, gasLimit: 5000000})
+    .once('confirmation', (confirmation) => {
+      this.setState({ loading: false }, () => {
+        // Refresh the page after loading is set to false
+        window.location.reload();
+      });
+    });
   }
 
   // createStory(id, price) {
@@ -210,7 +220,7 @@ class App extends Component {
                 voteEnd={this.createVoteEnd}
                 increase={this.increaseVotes}
                 getVote={this.getCurrentVote}
-                //createStory={this.createStory}
+                purchaseStory={this.purchaseStory}
               />
             )}
           </main>
