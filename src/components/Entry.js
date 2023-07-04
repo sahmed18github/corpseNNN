@@ -64,11 +64,11 @@ class Entry extends Component {
 				color: '#333',
 				border: '4px solid #599ee9',
 				borderRadius: '3px',
-				fontSize: '1.1vw', // Adjust the percentage value as needed
+				fontSize: '1.1vw',
 				cursor: 'pointer',
 				textTransform: 'uppercase',
 				fontWeight: 'bold',
-				letterSpacing: '0.1vw', // Adjust the percentage value as needed
+				letterSpacing: '0.1vw', 
 				height: '100%',
 		  }}  
 		 >

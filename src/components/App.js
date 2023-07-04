@@ -4,6 +4,7 @@ import './App.css';
 import Marketplace from '../abis/Marketplace.json'
 import Navbar from './Navbar'
 import Main from './Main'
+import './Loader.css';
 
 class App extends Component {
 
@@ -103,7 +104,7 @@ class App extends Component {
     this.getArr = this.getArr.bind(this)
     this.createVoteEnd = this.createVoteEnd.bind(this)
     this.getCurrentVote = this.getCurrentVote.bind(this)
-    this.purchaseStory = this.purchaseStory.bind(this)
+    //this.createStory = this.createStory.bind(this)
   }
 
   createProduct(name, price, upvotes, contributors) {
@@ -117,10 +118,10 @@ class App extends Component {
     });
   }
 
-  purchaseProduct(_id, price) {
+  purchaseProduct(id, price) {
     this.setState({ loading: true })
     
-    this.state.marketplace.methods.purchaseProduct(_id).send({ from: this.state.account, value: price, gasLimit: 5000000})
+    this.state.marketplace.methods.purchaseProduct(id).send({ from: this.state.account, value: price, gasLimit: 5000000})
     .once('confirmation', (confirmation) => {
       this.setState({ loading: false }, () => {
         // Refresh the page after loading is set to false
@@ -131,20 +132,13 @@ class App extends Component {
     
   }
 
-  purchaseStory(id, price) {
-    this.setState({ loading : true })
-    this.state.marketplace.methods.purchaseStory(id).send({from: this.state.account, value: price})
-    .once('receipt', (receipt) => {
-      this.setState({loading: false})
-    })
-  }
-  // createStory(storyname, price) {
-  //   this.setState({ loading : true })
-  //   this.state.marketplace.methods.createStory(storyname, price).send({from: this.state.account})
+  // createStory(id, price) {
+  //   this.setState({ loading: true })
+  //   this.state.marketplace.methods.createStory(id, price)
   //   .once('confirmation', (confirmation) => {
   //     this.setState({ loading: false }, () => {
   //       // Refresh the page after loading is set to false
-  //       window.location.reload();
+  //       //window.location.reload();
   //     });
   //   });
   // }
@@ -186,31 +180,45 @@ class App extends Component {
     return (
       <div className='all_encomp'>
         <div id="particles-js">
-            <main role="main" className="col-lg-12 d-flex">
-              { this.state.loading
-                ? <div id="loading-text" className="text-center">
-                  <p className="text-center">Loading...</p></div>
-                : <Main
-                  products={this.state.products}
-                  historicalProducts={this.state.products_historical}
-                  Story={this.state.Story}
-                  votez = {this.state.vote_end}
-                  createProduct={this.createProduct}
-                  purchaseProduct={this.purchaseProduct}
-                  getArr={this.getArr} 
-                  voteEnd={this.createVoteEnd}
-                  increase={this.increaseVotes}
-                  getVote={this.getCurrentVote}
-                  purchaseStory ={this.purchaseStory}
+          <main role="main" className="col-lg-12 d-flex">
+            {this.state.loading ? (
+              <div id="loading-text" className="text-center">
+                  <div className="loader-container"
+                   style={{ fontSize: 'calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320))',
+                   marginTop: '85%'}}>
+                    <div className="book">
+                      <div className="book__pg-shadow"></div>
+                      <div className="book__pg"></div>
+                      <div className="book__pg book__pg--2"></div>
+                      <div className="book__pg book__pg--3"></div>
+                      <div className="book__pg book__pg--4"></div>
+                      <div className="book__pg book__pg--5"></div>
+                    </div>
+                    <p className="text-center" style={{ marginTop: '10%', fontFamily: 'Arial, sans-serif', fontSize: '100%', fontWeight: 'bold' }}>Loading...</p>
 
-                 // createStory={this.createStory}
-                  />
-              }
-            </main>
-            </div>
+              </div>
+              </div>
+            ) : (
+              <Main
+                products={this.state.products}
+                historicalProducts={this.state.products_historical}
+                Story={this.state.Story}
+                votez={this.state.vote_end}
+                createProduct={this.createProduct}
+                purchaseProduct={this.purchaseProduct}
+                getArr={this.getArr}
+                voteEnd={this.createVoteEnd}
+                increase={this.increaseVotes}
+                getVote={this.getCurrentVote}
+                //createStory={this.createStory}
+              />
+            )}
+          </main>
+        </div>
       </div>
     );
   }
+  
 }
 
 export default App;

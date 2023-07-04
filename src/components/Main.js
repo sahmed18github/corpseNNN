@@ -86,18 +86,18 @@ class Main extends Component {
     type="submit"
     className="btn btn-primary"
     style={{
-      marginLeft: '1%',  // Add margin to create space between form and button
+      marginLeft: '1%',  
       //marginTop: '1%',
       padding: '0.3% 0.5%',
       background: '#f2f2f2',
       color: '#333',
       border: '4px solid #599ee9',
       borderRadius: '3px',
-      fontSize: '1.1vw', // Adjust the percentage value as needed
+      fontSize: '1.1vw', 
       cursor: 'pointer',
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      letterSpacing: '0.1vw', // Adjust the percentage value as needed
+      letterSpacing: '0.1vw',
       height: '100%',
     }}
   >
@@ -193,18 +193,18 @@ class Main extends Component {
     }}
     className="btn btn-primary"
     style={{
-      marginLeft: '0%',  // Add margin to create space between form and button
+      marginLeft: '0%',
       //marginTop: '1%',
       padding: '0.3% 0.5%',
       background: '#f2f2f2',
       color: '#333',
       border: '4px solid #599ee9',
       borderRadius: '3px',
-      fontSize: '1.1vw', // Adjust the percentage value as needed
+      fontSize: '1.1vw', 
       cursor: 'pointer',
       textTransform: 'uppercase',
       fontWeight: 'bold',
-      letterSpacing: '0.1vw', // Adjust the percentage value as needed
+      letterSpacing: '0.1vw',
       height: '100%',
     }}
   >
@@ -213,7 +213,8 @@ class Main extends Component {
 </div>
 
 
-<div className="content past_stories" style={{ width: "100%", marginLeft: "0%", fontFamily: "Arial" }}>
+ <div className="content past_stories" style={{ width: "100%", marginLeft: "0%", fontFamily: "Arial" }}>
+  {/* 
        <h3>
           Past Stories
         </h3>
@@ -239,49 +240,68 @@ class Main extends Component {
           ))}
 
           </div>
-        <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#2a323d", fontWeight: "bold", marginRight: "1"}}>
-          Beta V1.0, UEP Lab Tufts University  
-        </div>
-
-      </div>
+      
       <br>
-        </br>
+        </br> */}
         
-        <h2>Story Marketplace</h2>
-        <table className="table">
+        <h3>Story Marketplace</h3>
+        <table className="table" style={{ color: 'black'}}>
           <thead>
             <tr>
-              <th scope="col">Story</th>
-              <th scope="col">Price</th>
-              <th scope="col">Owner</th>
-              <th scope="col">Authors</th>
-              <th scope="col"></th>
-
+            <th style={{ width: '30%' }} scope="col">Story</th>
+            <th style={{ width: '12%' }} scope="col">Price</th>
+            <th style={{ width: '24%' }} scope="col">Owner</th>
+            <th style={{ width: '24%' }} scope="col">Authors</th>
+            <th style={{ width: '10%' }} scope="col"></th>
             </tr>
           </thead>
-          <tbody id="productList">
-         {this.props.historicalProducts.map((historicalProduct, index) => (
-        <tr key={index}>
-          
-          <td>{historicalProduct.fullS}</td>
-          <td>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
-          <td> {historicalProduct.owner} </td>
-          <td>{historicalProduct.authors}</td>
-          <td> 
-              { !historicalProduct.purchased
-                ? <button 
-             name = {historicalProduct.fullS}
-             value = {historicalProduct.price}
-             onClick = {(event) => {
-              this.props.purchaseStory(event.target.name, event.target.value)
-             }}
-              >
-              Buy </button>
-              : null }
-              </td>
-        </tr>
-      ))}
+          <tbody id="productList" >
+            {this.props.historicalProducts.map((historicalProduct, index) => {
+              if (index === 0 && !historicalProduct.fullS) {
+                return null;
+              }
+              return (
+                <tr key={index}>
+                  <td>{historicalProduct.fullS}</td>
+                  <td>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
+                  <td>{historicalProduct.owner}</td>
+                  <td>{historicalProduct.authors}</td>
+                  <td>
+                    {!historicalProduct.purchased && (
+                      <button
+                        name={historicalProduct.fullS}
+                        value={historicalProduct.price}
+                        onClick={(event) => {
+                          this.props.purchaseStory(event.target.name, event.target.value);
+                        }}
+                        style={{
+                          marginLeft: '1%',
+                          //marginTop: '1%',
+                          padding: '3% 10%',
+                          background: '#f2f2f2',
+                          color: '#333',
+                          border: '4px solid #599ee9',
+                          borderRadius: '3px',
+                          fontSize: '1.1vw',
+                          cursor: 'pointer',
+                          textTransform: 'uppercase',
+                          fontWeight: 'bold',
+                          letterSpacing: '0.1vw', 
+                          height: '100%',
+                        }}  
+                      >
+                        Buy
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
+
+
+
+
           {/* <tbody id="productList">
           { this.props.products.map((product, key) => {  
             	this.props.getArr(product.id.toNumber());         
@@ -310,8 +330,13 @@ class Main extends Component {
         </br>
       </div>
 
-      
+      <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#2a323d", fontWeight: "bold", marginRight: "1"}}>
+          Beta V1.0, UEP Lab Tufts University  
+        </div>
+
+      </div>
     );
+    
   }
 }
 

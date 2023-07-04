@@ -64,7 +64,9 @@ table {
     word-break: normal;
     white-space: normal;
     overflow-wrap: anywhere;
+
   }
+
   
 
 th,
@@ -84,7 +86,8 @@ td {
 
 .all_encomp {
     min-height: 100vh;
-    background-color: #2a323d;
+    background: linear-gradient(to bottom right, #2a323d, #21546d);
+    
 }
 
 .past_stories {
