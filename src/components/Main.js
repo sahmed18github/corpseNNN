@@ -245,11 +245,12 @@ class Main extends Component {
         </br> */}
         
         <h3>Story Marketplace</h3>
-        <table className="table" style={{ color: 'black'}}>
+        
+        <table className="table">
           <thead>
             <tr>
             <th style={{ width: '30%' }} scope="col">Story</th>
-            <th style={{ width: '12%' }} scope="col">Price</th>
+            <th style={{ width: '10%' }} scope="col">Price</th>
             <th style={{ width: '24%' }} scope="col">Owner</th>
             <th style={{ width: '24%' }} scope="col">Authors</th>
             <th style={{ width: '10%' }} scope="col"></th>
@@ -258,8 +259,7 @@ class Main extends Component {
           
           <tbody id="productList" >
           {this.props.historicalProducts.map((historicalProduct, index) => (
-        <tr key={index}>
-          <td>{historicalProduct.id.toString()}</td>
+        <tr key={index} style={{ color: 'darkblue' }}>
           <td>{historicalProduct.fullS}</td>
           <td>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
           <td> {historicalProduct.owner} </td>
@@ -272,8 +272,8 @@ class Main extends Component {
              onClick = {(event) => {
               this.props.purchaseStory(event.target.id, event.target.value)
              }}
-              >
-               {/* style={{
+              
+               style={{
                   marginLeft: '1%',
                   //marginTop: '1%',
                   padding: '3% 10%',
@@ -287,7 +287,7 @@ class Main extends Component {
                   fontWeight: 'bold',
                   letterSpacing: '0.1vw', 
                   height: '100%',
-                }}   */}
+                }}  >
             Buy </button>
             : null }
           </td>
