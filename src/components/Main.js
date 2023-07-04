@@ -249,22 +249,22 @@ class Main extends Component {
         <table className="table">
           <thead>
             <tr>
-            <th style={{ width: '30%' }} scope="col">Story</th>
-            <th style={{ width: '10%' }} scope="col">Price</th>
-            <th style={{ width: '24%' }} scope="col">Owner</th>
-            <th style={{ width: '24%' }} scope="col">Authors</th>
-            <th style={{ width: '10%' }} scope="col"></th>
+            <th style={{ width: '30%', color: '#2a323d' }} scope="col">Story</th>
+            <th style={{ width: '10%', color: '#2a323d' }} scope="col">Price</th>
+            <th style={{ width: '24%', color: '#2a323d' }} scope="col">Owner</th>
+            <th style={{ width: '24%', color: '#2a323d' }} scope="col">Authors</th>
+            <th style={{ width: '10%', color: '#2a323d' }} scope="col"></th>
             </tr>
           </thead>
           
           <tbody id="productList" >
           {this.props.historicalProducts.map((historicalProduct, index) => (
         <tr key={index} style={{ color: 'darkblue' }}>
-          <td>{historicalProduct.fullS}</td>
-          <td>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
-          <td> {historicalProduct.owner} </td>
-          <td>{historicalProduct.authors}</td>
-          <td> 
+          <td style={{ color: '#2a323d' }}>{historicalProduct.fullS}</td>
+          <td style={{ color: '#2a323d' }}>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
+          <td style={{ color: '#2a323d' }}>{historicalProduct.owner}</td>
+          <td style={{ color: '#2a323d' }}>{historicalProduct.authors}</td>
+          <td>
               { !historicalProduct.purchased
                 ? <button 
              id = {historicalProduct.id}
@@ -326,7 +326,7 @@ class Main extends Component {
         </br>
       </div>
 
-      <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#2a323d", fontWeight: "bold", marginRight: "1"}}>
+      <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#f0f0f4", fontWeight: "bold", marginRight: "1"}}>
           Beta V1.0, UEP Lab Tufts University  
         </div>
 
