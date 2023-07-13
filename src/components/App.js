@@ -7,11 +7,15 @@ import Main from './Main'
 import './Loader.css';
 
 class App extends Component {
-
+  
+  async convertAddressesToString(addresses) {
+    return addresses.join(' ');
+  }
   async componentWillMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
   }
+
 
   async loadWeb3() {
     if (window.ethereum) {
@@ -47,6 +51,7 @@ class App extends Component {
       
       const historyProdCount = await marketplace.methods.historyProdCount().call()
       this.setState({ historyProdCount })
+      
       // const story = await marketplace.methods.story().call()
       // this.setState({story})
       
@@ -71,7 +76,7 @@ class App extends Component {
         //   })
         // }
        console.log(story.fullS)
-       console.log(story.authors)
+       console.log(story.owner)
 
 
       }
@@ -154,16 +159,23 @@ class App extends Component {
   // }
 
   createVoteEnd(price) {
-    this.setState({ loading: true })
+    console.log('Account:', this.state.account);
+    console.log('Vote End:', this.state.marketplace.methods.createVoteEnd(price));
+     this.setState({ loading: true })
     this.state.marketplace.methods.createVoteEnd(price).send({ from: this.state.account })
     .once('confirmation', (confirmation) => {
       this.setState({ loading: false }, () => {
         // Refresh the page after loading is set to false
         window.location.reload();
       });
+      
     });
-    console.log(this.state.marketplace.methods.getCurrentVote())
-    //document.getElementById('vote').innerHTML = ""+this.marketplace.vote_end() + ""
+    // console.log(this.state.marketplace.methods.getCurrentVote())
+    //document.getElementById('vote').innerHTML = "" +this.marketplace.vote_end() + ""
+    const voteElement = document.getElementById('vote');
+    if (voteElement) {
+      voteElement.innerHTML = "" + this.marketplace.vote_end() + "";
+    }
   }
 
   async getArr(id) {

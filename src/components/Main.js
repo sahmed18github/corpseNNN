@@ -188,7 +188,8 @@ class Main extends Component {
 
   <button
     onClick={(event) => {
-      const price = window.web3.utils.toWei("0.000009", 'Ether');
+      //console.log('Vote End:', this.marketplace.vote_end(price));
+      const price = window.web3.utils.toWei("1", 'Ether');
       this.props.voteEnd(price);
     }}
     className="btn btn-primary"
@@ -262,8 +263,8 @@ class Main extends Component {
         <tr key={index} style={{ color: 'darkblue' }}>
           <td style={{ color: '#2a323d' }}>{historicalProduct.fullS}</td>
           <td style={{ color: '#2a323d' }}>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
-          <td style={{ color: '#2a323d' }}>{historicalProduct.owner}</td>
-          <td style={{ color: '#2a323d' }}>{historicalProduct.authors}</td>
+          {/* <td style={{ color: '#2a323d' }}>{Marketplace.methods.addressArraytoString(historicalProduct.owner)}</td>
+           */}
           <td>
               { !historicalProduct.purchased
                 ? <button 
