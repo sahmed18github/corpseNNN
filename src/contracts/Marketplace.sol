@@ -39,6 +39,7 @@ contract Marketplace {
 		uint id;
 		uint sentCount;
 		string fullS;
+		string authors;
 		uint price;
 		bool purchased;
 		address payable [] owner;
@@ -53,6 +54,7 @@ contract Marketplace {
 	event StoryPurchased(
 		uint id,
 		string fullS,
+		string authors,
 		uint price,
 		bool purchased,
 		address payable [] owner
@@ -385,10 +387,14 @@ contract Marketplace {
 			for (uint j = 1; j <= SentenceCount; j++) {
 				full_story = concatenate(full_story, concatenate(space, story[j]));
 			}
-			//add the authors
+			//add the authors strings
+			string memory authstring = "";
+			for (uint j = 0; j < authors.length; j++) {
+				authstring =  concatenate(authstring, concatenate(space, addressToString(authors[j])));
+			}
 			historyProdCount++; 
 			products_historical[historyProdCount] = CompleteStory(historyProdCount, SentenceCount, 
-			full_story, price , false, authors);
+			full_story, authstring, price , false, authors);
 			// //products_historical = strConcat(products_historical, "\n\n");
 			resetProducts();
 			vote_end = 0;
@@ -555,7 +561,7 @@ contract Marketplace {
 		// products_historical[_id] = H_story;
 
 		// Trigger an event
-		emit StoryPurchased(products_historical[_id].id,products_historical[_id].fullS, products_historical[_id].price, true,  products_historical[_id].owner);
+		emit StoryPurchased(products_historical[_id].id,products_historical[_id].fullS, products_historical[_id].authors, products_historical[_id].price, true,  products_historical[_id].owner);
 	}
 
 

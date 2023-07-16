@@ -263,8 +263,8 @@ class Main extends Component {
         <tr key={index} style={{ color: 'darkblue' }}>
           <td style={{ color: '#2a323d' }}>{historicalProduct.fullS}</td>
           <td style={{ color: '#2a323d' }}>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
-          {/* <td style={{ color: '#2a323d' }}>{Marketplace.methods.addressArraytoString(historicalProduct.owner)}</td>
-           */}
+          <td style={{ color: '#2a323d' }}>{historicalProduct.authors}</td>
+          
           <td>
               { !historicalProduct.purchased
                 ? <button 
