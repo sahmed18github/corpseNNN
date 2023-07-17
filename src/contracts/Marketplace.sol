@@ -21,7 +21,7 @@ contract Marketplace {
 	//link story in historical to the contributors
 	//string public authors;
 	mapping(uint => string) public story;
-	address[3] public voters_end;
+	address[8] public voters_end;
 	struct Product {
 		uint id;
 		string name;
@@ -29,7 +29,7 @@ contract Marketplace {
 		address payable owner;
 		bool purchased;
 		uint upvotes;
-		string[3] contributors;
+		string[5] contributors;
 	}
 	// struct Sentence {
 	// 	string name;
@@ -67,7 +67,7 @@ contract Marketplace {
 		address payable owner,
 		bool purchased,
 		uint upvotes,
-		string[3] contributors	
+		string[5] contributors	
 	);
 
 	event upVote(
@@ -81,7 +81,7 @@ contract Marketplace {
 		address payable owner,
 		bool purchased,
 		uint upvotes,
-		string[3] contributors
+		string[5] contributors
 	);
 
 	struct voteEnd{
@@ -95,7 +95,7 @@ contract Marketplace {
 		vote_end = 0;
 	}
 
-	function getArr(uint _id) public view returns (string[3] memory) {
+	function getArr(uint _id) public view returns (string[5] memory) {
 		Product storage myProduct = products[_id];
     	return myProduct.contributors;
 	}
@@ -142,119 +142,6 @@ contract Marketplace {
     }
 	
 
-// 	function strConcat(string memory _a, string memory _b, string memory _c, string memory _d, string memory _e) internal pure returns (string memory){
-//     bytes memory _ba = bytes(_a);
-//     bytes memory _bb = bytes(_b);
-//     bytes memory _bc = bytes(_c);
-//     bytes memory _bd = bytes(_d);
-//     bytes memory _be = bytes(_e);
-//     string memory abcde = new string(_ba.length + _bb.length + _bc.length + _bd.length + _be.length);
-//     bytes memory babcde = bytes(abcde);
-//     uint k = 0;
-// 	uint i = 0;
-//     for (i = 0; i < _ba.length; i++) babcde[k++] = _ba[i];
-//     for (i = 0; i < _bb.length; i++) babcde[k++] = _bb[i];
-//     for (i = 0; i < _bc.length; i++) babcde[k++] = _bc[i];
-//     for (i = 0; i < _bd.length; i++) babcde[k++] = _bd[i];
-//     for (i = 0; i < _be.length; i++) babcde[k++] = _be[i];
-//     return string(babcde);
-// 	}
-
-// 	function strConcat(string memory _a, string memory _b) internal pure returns (string memory) {
-//     return strConcat(_a, _b, "", "", "");
-// }
-
-	// function removeDuplicateWords(string memory input) public pure returns (string memory) {
-    //     string[] memory words = split(input, " ");
-    //     string memory output;
-        
-    //     for(uint i = 0; i < words.length; i++) {
-    //         bool isDuplicate = false;
-            
-    //         for(uint j = i + 1; j < words.length; j++) {
-    //             if (keccak256(abi.encodePacked(words[i])) == keccak256(abi.encodePacked(words[j]))) {
-    //                 isDuplicate = true;
-    //                 break;
-    //             }
-    //         }
-            
-    //         if (!isDuplicate) {
-    //             output = string(abi.encodePacked(output, words[i], " "));
-    //         }
-    //     }
-        
-    //     return output;
-    // }
-    
-    // function split(string memory input, string memory delimiter) private pure returns (string[] memory) {
-    //     bytes memory inputBytes = bytes(input);
-    //     bytes memory delimiterBytes = bytes(delimiter);
-    //     uint count = 1;
-        
-    //     for(uint i = 0; i < inputBytes.length; i++) {
-    //         if (inputBytes[i] == delimiterBytes[0]) {
-    //             count++;
-    //         }
-    //     }
-        
-    //     string[] memory parts = new string[](count);
-    //     uint startIndex = 0;
-    //     count = 0;
-        
-    //     for(uint i = 0; i < inputBytes.length; i++) {
-    //         if (inputBytes[i] == delimiterBytes[0]) {
-    //             parts[count] = substring(input, startIndex, i);
-    //             startIndex = i + 1;
-    //             count++;
-    //         }
-    //     }
-        
-    //     parts[count] = substring(input, startIndex, inputBytes.length);
-        
-    //     return parts;
-    // }
-    
-    // function substring(string memory input, uint startIndex, uint endIndex) private pure returns (string memory) {
-    //     bytes memory inputBytes = bytes(input);
-    //     bytes memory result = new bytes(endIndex - startIndex);
-        
-    //     for(uint i = startIndex; i < endIndex; i++) {
-    //         result[i - startIndex] = inputBytes[i];
-    //     }
-        
-    //     return string(result);
-    // }
-
-
-//    function convertStringToAddresses(string memory inputString) external pure returns (address payable[] memory) {
-        
-//         // Calculate the number of addresses in the input string
-//         uint256 numOfAddresses = (bytes(inputString).length + 1) / 43;
-        
-//         // Initialize the addresses array
-//         address payable[] memory addresses = new address payable[](numOfAddresses);
-        
-//         // Split the string and convert each address separately
-//         bytes memory stringBytes = bytes(inputString);
-//         uint256 addressIndex = 0;
-        
-//         for (uint256 i = 0; i < stringBytes.length; i += 43) {
-//             bytes20 addressBytes;
-            
-//             // Extract the bytes of the address
-//             for (uint256 j = 0; j < 40; j++) {
-//                 addressBytes |= bytes20(uint8(stringBytes[i + j]) & 0xFF) >> (j * 8);
-//             }
-            
-//             // Convert the address bytes to payable address and store it in the array
-//             addresses[addressIndex] = payable(address(uint160(uint256(addressBytes))));
-            
-//             // Move to the next address in the array
-//             addressIndex++;
-//         }
-        
-//         return addresses;
-//     }
 
 	function stringToAddress(string memory _input) internal pure returns (address) {
 		bytes32 hash = keccak256(bytes(_input));
@@ -345,13 +232,13 @@ contract Marketplace {
 		vote_end++;
 
 		//transfer to past stories
-		if(vote_end >= 1){
+		if(vote_end >=10){
 			Product memory _product;
 			SentenceCount = 0;
 			//address payable tempaddr;
 			for(uint i = 1; i <= productCount; i++){
 				_product = products[i];
-				if(_product.upvotes >= 2){
+				if(_product.upvotes >= 4){
 					authors.push(_product.owner);
 					//_sentence.name = _product.name;
 					SentenceCount++;
@@ -366,20 +253,6 @@ contract Marketplace {
 				}
 
 			}
-			// //store the authors in one address array
-			//address payable [] memory store_authors;
-			// if (SentenceCount == 1) {
-			// 	store_authors = story[1].authors;
-			// }
-			// if (SentenceCount == 2) {
-			// 	store_authors = concatAddresses(story[1].authors, story[2].authors);
-			// }
-			// if (SentenceCount > 2) {
-			// 	store_authors = story[1].authors;
-			// 	for(uint i = 2; i <= SentenceCount; i++) {
-			// 		store_authors = concatAddresses(store_authors , story[i].authors);
-			// 	}
-			// }
 			// //concate all sentences in one string
 			string memory full_story = "";
 			string memory space = " ";
@@ -395,7 +268,6 @@ contract Marketplace {
 			historyProdCount++; 
 			products_historical[historyProdCount] = CompleteStory(historyProdCount, SentenceCount, 
 			full_story, authstring, price , false, authors);
-			// //products_historical = strConcat(products_historical, "\n\n");
 			resetProducts();
 			vote_end = 0;
 			productCount = 0;
@@ -412,18 +284,6 @@ contract Marketplace {
 		return vote_end;
 	}
 	
-	// function checkVotesLoad() public{
-	// 	Product memory _product;
-	// 	for(uint i = 0; i < vote_end; i++){
-	// 		_product = products[i];
-	// 		if(_product.upvotes >= 2){
-	// 				historyProdCount++;
-	// 				_product = products[i];
- 	// 				products_historical[historyProdCount] = _product;
-	// 		}
-	// 	}
-	// }
-
 	function resetProducts() public view{
 		Product memory _product;
 		for(uint i = 0; i < vote_end; i++){
@@ -434,7 +294,7 @@ contract Marketplace {
 	}
 
 
-	function createProduct(string memory _name, uint _price, uint upvotes, string[3] memory contributors) public {
+	function createProduct(string memory _name, uint _price, uint upvotes, string[5] memory contributors) public {
 		// require a name
 		require(bytes(_name).length > 0);
 		// require a valid price
@@ -452,7 +312,7 @@ contract Marketplace {
 		emit ProductCreated(productCount, _name, _price, payable(msg.sender), false, upvotes, contributors);
 	}
 
-	function purchaseProduct(uint _id) public payable {
+	function purchaseProduct(uint _id) public payable{
 		// fetch product
 		Product memory _product = products[_id];	
 		// fetch the owner
@@ -468,11 +328,6 @@ contract Marketplace {
 		require(_seller != msg.sender, "Already upvoted");
 		// require that the buyer is not a previous contributor (i.e already upvoted)
 		
-
-		// // purchase it -> transfer ownership to buyer
-		// if (_product.upvotes <= 0) {
-		// 	_product.owner = payable(msg.sender);
-		// }
 		
 		payable(_seller).transfer(msg.value);
 		// mark as purchased
@@ -483,19 +338,8 @@ contract Marketplace {
 		//update the product
 		products[_id] = _product;
 		
-		// products[_id] = Product(productCount,
-		// _product.name, _product.price, 
-		// _product.owner, false, 
-		// _product.upvotes, 
-		// _product.contributors);
-
-		if(_product.upvotes >= 2){
+		if(_product.upvotes >= 4){
 			_product.purchased = true;
-			// products[_id] = Product(productCount,
-			// _product.name, _product.price, 
-			// _product.owner, true, 
-			// _product.upvotes, 
-			// _product.contributors);
 			products[_id] = _product;
 			emit ProductPurchased(productCount, _product.name, _product.price, _product.owner, true, _product.upvotes, _product.contributors);
 		}
@@ -503,40 +347,14 @@ contract Marketplace {
 			_product.purchased = false;
 			products[_id] = _product;
 			emit ProductPurchased(productCount, _product.name, _product.price, _product.owner, false, _product.upvotes, _product.contributors);
-			//emit ProductCreated(productCount, _product.name, _product.price, _product.owner, false, _product.upvotes, _product.contributors);
 		}	
 	}
-
-
-
-
-// function sellStory(string memory _name, uint _price,string memory authors) public {
-// 	require(bytes(_name).length > 0);
-// 		// require a valid price
-// 	require(_price > 0);
-
-// // // }
-// function createStory(string memory storyname, uint price) public {
-// 		// require a name
-// 		require(bytes(name).length > 0);
-// 		// require a valid price
-// 		require(price > 0);
-// 		storyCount++;
-// 		// //add owner to contributors
-// 		// contributors[upvotes] = addressToString(msg.sender);
-// 		// create the product
-		
-// 		//products_historical[storyCount].price = msg.sender;
-// 		products_historical[storyCount].purchased = false;
-// 		// trigger an event	
-// 		emit StoryCreatedwPrice(products_historical[storyCount].fullS, price, false);
-// }
 
 
    function purchaseStory(uint _id) public payable {
 		// Fetch the product
 		require(_id > 0 && _id <= historyProdCount, "Invalid product ID");
-		//CompleteStory storage H_story = products_historical[_id];
+
 		require(msg.value >= products_historical[_id].price, "Insufficient funds");
 
 		require(!products_historical[_id].purchased, "Story already purchased");
@@ -556,9 +374,6 @@ contract Marketplace {
 		delete authors;
 		delete products_historical[_id].owner;
 		products_historical[_id].owner.push(payable(msg.sender)); 
-
-		// Update product in mapping
-		// products_historical[_id] = H_story;
 
 		// Trigger an event
 		emit StoryPurchased(products_historical[_id].id,products_historical[_id].fullS, products_historical[_id].authors, products_historical[_id].price, true,  products_historical[_id].owner);

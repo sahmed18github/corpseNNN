@@ -26,7 +26,7 @@ class Entry extends Component {
 	const concatenatedData = myData.join(" "); 
 
     return (
-	((this.props.product.upvotes < 2) ?
+	((this.props.product.upvotes < 4) ?
 		<tr key={this.props.key}>
 	   { !this.props.product.purchased
 		   ?

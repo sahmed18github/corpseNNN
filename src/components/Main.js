@@ -42,14 +42,12 @@ class Main extends Component {
   <h2>How it Works</h2>
         <div style={{ textAlign: "center" }}>
         
-        Every sentence is given a base price. Once a sentence, reaches 2 
+        Every sentence is given a base price. Once a sentence, reaches 4
         upvotes the word can no longer be purchased. The people who bought
          the sentence are listed as contributors to the story. Once 10 people 
          vote to end the story it is minted as its own contract available for 
-         purchase. The contributors are then sent an equal proportion of the 
-         sale of the story. You can see for each sentence a historical log of 
-         every person who interacted with the sentence through upvoting. The 
-         first contributor is always the person who made the original sentence.
+         purchase. The authors are then sent an equal proportion of the 
+         sale of the story. The first contributor is always the person who made the original sentence.
         </div>
         <br>
         </br>
@@ -62,7 +60,7 @@ class Main extends Component {
     event.preventDefault();
     const name = this.productName.value;
     const price = window.web3.utils.toWei("0.000005", 'Ether');
-    var my_val = ['', '', ''];
+    var my_val = ['', '', '', '', ''];
     this.props.createProduct(name, price, 0, my_val);
   }}
   style={{
@@ -145,7 +143,7 @@ class Main extends Component {
         { 
         this.props.products.map((product, key) => {
               return(
-                (product.upvotes >= 2) ?
+                (product.upvotes >= 4) ?
                 <div key={key}>
                     { product.purchased
                       ? <div  ref="setter" className="sentence" dangerouslySetInnerHTML={{ __html: product.name}}></div>
@@ -189,7 +187,7 @@ class Main extends Component {
   <button
     onClick={(event) => {
       //console.log('Vote End:', this.marketplace.vote_end(price));
-      const price = window.web3.utils.toWei("1", 'Ether');
+      const price = window.web3.utils.toWei("0.000009", 'Ether');
       this.props.voteEnd(price);
     }}
     className="btn btn-primary"

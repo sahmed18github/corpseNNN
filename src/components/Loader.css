@@ -16,8 +16,10 @@
 }
 body {
 	background: linear-gradient(to bottom right, #2a323d, #21546d);
+	background-size:100%;
+	background-repeat:no-repeat;
 	font: 1em/1.5 sans-serif;
-	height: 100vh;
+	height: 100%;
 	display: grid;
 	place-items: center;
 	
