@@ -251,7 +251,6 @@ class Main extends Component {
             <th style={{ width: '30%', color: '#2a323d' }} scope="col">Story</th>
             <th style={{ width: '10%', color: '#2a323d' }} scope="col">Price</th>
             <th style={{ width: '24%', color: '#2a323d' }} scope="col">Owner</th>
-            <th style={{ width: '24%', color: '#2a323d' }} scope="col">Authors</th>
             <th style={{ width: '10%', color: '#2a323d' }} scope="col"></th>
             </tr>
           </thead>

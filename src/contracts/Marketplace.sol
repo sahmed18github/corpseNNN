@@ -21,7 +21,7 @@ contract Marketplace {
 	//link story in historical to the contributors
 	//string public authors;
 	mapping(uint => string) public story;
-	address[8] public voters_end;
+	address[11] public voters_end;
 	struct Product {
 		uint id;
 		string name;
@@ -374,9 +374,9 @@ contract Marketplace {
 		delete authors;
 		delete products_historical[_id].owner;
 		products_historical[_id].owner.push(payable(msg.sender)); 
-
+		products_historical[_id].authors = addressToString(msg.sender);
 		// Trigger an event
-		emit StoryPurchased(products_historical[_id].id,products_historical[_id].fullS, products_historical[_id].authors, products_historical[_id].price, true,  products_historical[_id].owner);
+		emit StoryPurchased(products_historical[_id].id,products_historical[_id].fullS, addressToString(msg.sender), products_historical[_id].price, true,  products_historical[_id].owner);
 	}
 
 
