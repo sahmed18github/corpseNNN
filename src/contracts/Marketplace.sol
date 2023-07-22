@@ -210,17 +210,7 @@ contract Marketplace {
 		return string(str);
 	}
 
-	function addressArraytoString(address [] memory addr) public returns (string memory)  {
-		string memory stringAddr1 = "";
-		string memory stringAddr2 = "";
-		for(uint i = 1; i <= addr.length; i++) {
-			stringAddr1 = addressToString(addr[i]);
-			stringAddr2 = concatenate(stringAddr2, concatenate(stringAddr1, ""));
-		}
-
-		return stringAddr2;
-	}
-
+	
 	function createVoteEnd(uint price) public {
     //string storage senderString = toString(msg.sender);
 	//check not similar voters
@@ -304,8 +294,7 @@ contract Marketplace {
 		productCount++;
 		//add owner to contributors
 		contributors[upvotes] = addressToString(msg.sender);
-		//address payable [] memory owner;
-		//owner[1] = payable(msg.sender);
+		delete contributors[0];
 		// create the product
 		products[productCount] = Product(productCount, _name, _price, payable(msg.sender), false, upvotes, contributors);
 		// trigger an event	

@@ -44,11 +44,10 @@ class Main extends Component {
         
         Every sentence is given a base price. Once a sentence, reaches 4
         upvotes the word can no longer be purchased. The people who bought
-         the sentence are listed as contributors to the story. Once 10 people 
+         the sentence are listed as voters to the story. Once 10 people 
          vote to end the story it is minted as its own contract available for 
          purchase. The authors are then sent an equal proportion of the 
-         sale of the story. The first contributor is always the person who made the original sentence.
-        </div>
+         sale of the story. </div>
         <br>
         </br>
         <hr className="section-divider"></hr>
@@ -59,7 +58,7 @@ class Main extends Component {
   onSubmit={(event) => {
     event.preventDefault();
     const name = this.productName.value;
-    const price = window.web3.utils.toWei("0.000005", 'Ether');
+    const price = window.web3.utils.toWei("0.005", 'Ether');
     var my_val = ['', '', '', '', ''];
     this.props.createProduct(name, price, 0, my_val);
   }}
@@ -115,7 +114,7 @@ class Main extends Component {
               <th style={{ width: '12%' }} scope="col">Price</th>
               <th style={{ width: '8%' }} scope="col">Upvotes</th>
               <th style={{ width: '20%' }} scope="col">Owner</th>
-              <th style={{ width: '20%' }} scope="col">Contributors</th>
+              <th style={{ width: '20%' }} scope="col">Voters</th>
               <th style={{ width: '15%' }} scope="col"></th>
             </tr>
           </thead>
@@ -187,7 +186,7 @@ class Main extends Component {
   <button
     onClick={(event) => {
       //console.log('Vote End:', this.marketplace.vote_end(price));
-      const price = window.web3.utils.toWei("0.000009", 'Ether');
+      const price = window.web3.utils.toWei("0.01", 'Ether');
       this.props.voteEnd(price);
     }}
     className="btn btn-primary"
@@ -259,7 +258,7 @@ class Main extends Component {
           {this.props.historicalProducts.map((historicalProduct, index) => (
         <tr key={index} style={{ color: 'darkblue' }}>
           <td style={{ color: '#2a323d' }}>{historicalProduct.fullS}</td>
-          <td style={{ color: '#2a323d' }}>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} Eth</td>
+          <td style={{ color: '#2a323d' }}>{window.web3.utils.fromWei(historicalProduct.price.toString(), 'Ether')} MATIC</td>
           <td style={{ color: '#2a323d' }}>{historicalProduct.authors}</td>
           
           <td>

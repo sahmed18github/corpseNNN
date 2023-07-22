@@ -33,7 +33,7 @@ class Entry extends Component {
 	   <td>{this.props.name}</td> : null}
 	   { !this.props.product.purchased
 		   ?
-	   <td>{window.web3.utils.fromWei(this.props.product.price.toString(), 'Ether')} Eth</td> : null}
+	   <td>{window.web3.utils.fromWei(this.props.product.price.toString(), 'Ether')} MATIC</td> : null}
 	   { !this.props.product.purchased
 		   ?
 	   <td>{this.props.upvotes.toString()}</td>: null}
