@@ -109,3 +109,10 @@ td {
     border-top: 1px solid #5e5e62;
     margin: 2% 0;
 }
+
+.custom-link {
+    color: rgb(255, 255, 255); 
+    font-weight: bold;
+    text-decoration: none; 
+}
+

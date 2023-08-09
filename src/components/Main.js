@@ -38,28 +38,62 @@ class Main extends Component {
   </br>
   <br>
   </br>
+  <br>
+  </br>
   <p>&nbsp;</p>
   <h2>How it Works</h2>
         <div style={{ textAlign: "center" }}>
-        
-        Every sentence is given a base price. Once a sentence, reaches 4
-        upvotes the word can no longer be purchased. The people who bought
-         the sentence are listed as voters to the story. Once 10 people 
-         vote to end the story it is minted as its own contract available for 
-         purchase. The authors are then sent an equal proportion of the 
-         sale of the story. </div>
+        <p>
+        For over a century, the Exquisite Corpse has been an approach creative 
+        people have employed to solve problems and collaborate.  Web3 technology 
+        has made it possible to drastically improve cooperation across time and 
+        space, while also recording contributions to protect intellectual 
+        property.  
+        </p>
+
+        <p>
+        Please join this experiment in creative and collaborative story writing!  
+        You can start out as an author and suggest the first (or next) sentence 
+        of a story (for a nominal $0.01 equivalent cost, plus network gas fee).  
+        You can also weigh in on which sentence should go next by upvoting 
+        (again for $0.01 and gas fee).  Once a sentence has three upvotes, it 
+        goes into the story and the author receives funds deposited into their 
+        wallet representing a fraction of those upvote fees (not a lot of money).  
+        </p>
+
+        <p>
+        But then, after four upvotes (again, for $0.01 and gas fees each), the 
+        story is ended and goes for sale in the Story Marketplace.  Here, all 
+        authors will receive their share of the proceeds from the sale, both 
+        initially and on an ongoing basis through a royalties feature in the 
+        contract.  That means that if the story is eventually sold to a 
+        publisher or its movie rights are optioned (could happen), the original 
+        sentence authors will continue to see funds deposited into their 
+        wallets.  Don’t lose that wallet address!
+        </p>
+
+        <p>
+        We hope you enjoy this experiment in crowd-sourced creative writing – 
+        be sure to share with your friends, family, and colleagues. Let us know 
+        if you have any feedback.
+        </p> 
+        </div>
         <br>
         </br>
+        <h2>How to Use a Digital Wallet</h2>
+        <div style={{ textAlign: "center" }}>
+        <a href="https://docs.google.com/document/d/1fphIVNir-0WOTRuiAURv1HM1YOOpGDN7Ewf4wkR5LBs/edit" target="_blank" class="custom-link">Link for instructions on how to use a digital wallet</a>
+        </div>
         <hr className="section-divider"></hr>
         <br>
         </br>
-        <h2>Add a Sentence</h2>
+        <h2>Suggest the next sentence to a story</h2>
         <form
   onSubmit={(event) => {
     event.preventDefault();
     const name = this.productName.value;
     const price = window.web3.utils.toWei("0.005", 'Ether');
-    var my_val = ['', '', '', '', ''];
+    var my_val  = ['', '', '', ''];
     this.props.createProduct(name, price, 0, my_val);
   }}
   style={{
@@ -105,7 +139,7 @@ class Main extends Component {
         
         <br>
         </br>
-        <h2>Buy Sentence</h2>
+        <h2>Vote for a sentence to be included in a story</h2>
         
         <table className="table">
           <thead>
@@ -113,7 +147,7 @@ class Main extends Component {
               <th style={{ width: '30%' }} scope="col">Sentence</th>
               <th style={{ width: '12%' }} scope="col">Price</th>
               <th style={{ width: '8%' }} scope="col">Upvotes</th>
-              <th style={{ width: '20%' }} scope="col">Owner</th>
+              <th style={{ width: '20%' }} scope="col">Sentence Author</th>
               <th style={{ width: '20%' }} scope="col">Voters</th>
               <th style={{ width: '15%' }} scope="col"></th>
             </tr>
@@ -136,24 +170,19 @@ class Main extends Component {
         <hr className="section-divider"></hr>
         <br>
         </br>
+        
         <h2>
-          The Story
-        </h2>
-        { 
-        this.props.products.map((product, key) => {
-              return(
-                (product.upvotes >= 4) ?
-                <div key={key}>
-                    { product.purchased
-                      ? <div  ref="setter" className="sentence" dangerouslySetInnerHTML={{ __html: product.name}}></div>
-                      : null
-                    }
-                </div>
-                : null
-              )
-            })}
-            <br>
-            </br>
+  The Story
+</h2>
+{this.props.products
+  .filter(product => product.upvotes >= 3 && product.purchased) // Filter products with upvotes >= 3 and purchased flag set to true
+  .map((product, key) => (
+    <React.Fragment key={key}>
+      <span dangerouslySetInnerHTML={{ __html: product.name }} />
+      &nbsp; {}
+    </React.Fragment>
+  ))}
+
     
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <div>
@@ -169,7 +198,7 @@ class Main extends Component {
 
 
 <div>
-  {[...Array(10)].map((_, index) => (
+  {[...Array(4)].map((_, index) => (
     <div
       key={index}
       style={{
@@ -323,9 +352,10 @@ class Main extends Component {
         </br>
       </div>
 
-      <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#f0f0f4", fontWeight: "bold", marginRight: "1"}}>
-          Beta V1.0, UEP Lab Tufts University  
-        </div>
+      <div style={{ marginTop: "3em", clear: "both", textAlign: "right", color: "#f0f0f4", fontWeight: "bold", marginRight: "1" }}>
+        Beta V1.0, Urban Attitudes Lab, Tufts University &lt;sites.tufts.edu/ualab&gt;.
+      </div>
+
 
       </div>
     );

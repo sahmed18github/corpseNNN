@@ -21,7 +21,7 @@ contract Marketplace {
 	//link story in historical to the contributors
 	//string public authors;
 	mapping(uint => string) public story;
-	address[11] public voters_end;
+	address[4] public voters_end;
 	struct Product {
 		uint id;
 		string name;
@@ -29,7 +29,7 @@ contract Marketplace {
 		address payable owner;
 		bool purchased;
 		uint upvotes;
-		string[5] contributors;
+		string[4] contributors;
 	}
 	// struct Sentence {
 	// 	string name;
@@ -67,7 +67,7 @@ contract Marketplace {
 		address payable owner,
 		bool purchased,
 		uint upvotes,
-		string[5] contributors	
+		string[4] contributors	
 	);
 
 	event upVote(
@@ -81,7 +81,7 @@ contract Marketplace {
 		address payable owner,
 		bool purchased,
 		uint upvotes,
-		string[5] contributors
+		string[4] contributors
 	);
 
 	struct voteEnd{
@@ -95,7 +95,7 @@ contract Marketplace {
 		vote_end = 0;
 	}
 
-	function getArr(uint _id) public view returns (string[5] memory) {
+	function getArr(uint _id) public view returns (string[4] memory) {
 		Product storage myProduct = products[_id];
     	return myProduct.contributors;
 	}
@@ -222,13 +222,13 @@ contract Marketplace {
 		vote_end++;
 
 		//transfer to past stories
-		if(vote_end >=10){
+		if(vote_end >= 4){
 			Product memory _product;
 			SentenceCount = 0;
 			//address payable tempaddr;
 			for(uint i = 1; i <= productCount; i++){
 				_product = products[i];
-				if(_product.upvotes >= 4){
+				if(_product.upvotes >= 3){
 					authors.push(_product.owner);
 					//_sentence.name = _product.name;
 					SentenceCount++;
@@ -284,7 +284,7 @@ contract Marketplace {
 	}
 
 
-	function createProduct(string memory _name, uint _price, uint upvotes, string[5] memory contributors) public {
+	function createProduct(string memory _name, uint _price, uint upvotes, string[4] memory contributors) public {
 		// require a name
 		require(bytes(_name).length > 0);
 		// require a valid price
@@ -327,7 +327,7 @@ contract Marketplace {
 		//update the product
 		products[_id] = _product;
 		
-		if(_product.upvotes >= 4){
+		if(_product.upvotes >= 3){
 			_product.purchased = true;
 			products[_id] = _product;
 			emit ProductPurchased(productCount, _product.name, _product.price, _product.owner, true, _product.upvotes, _product.contributors);

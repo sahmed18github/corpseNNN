@@ -72,7 +72,7 @@ class Entry extends Component {
 				height: '100%',
 		  }}  
 		 >
-		   Buy
+		   Upvote 
 		 </button>
 		 
 		   : null
