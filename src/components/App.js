@@ -62,6 +62,7 @@ class App extends Component {
         this.setState({
           products: [...this.state.products, product]
         })
+        
       }
       //load stories
       for (var i = 1; i <= historyProdCount; i++) {
@@ -217,7 +218,10 @@ class App extends Component {
                       <div className="book__pg book__pg--5"></div>
                     </div>
                     <p className="text-center" style={{ marginTop: '10%', fontFamily: 'Arial, sans-serif', fontSize: '100%', fontWeight: 'bold' }}>Loading...</p>
-
+                    <div style={{ textAlign: "center" , fontSize: '50%' }}>
+        <a href="https://docs.google.com/document/d/1fphIVNir-0WOTRuiAURv1HM1YOOpGDN7Ewf4wkR5LBs/edit" target="_blank" class="custom-link"> <div >Click here for any troubles</div></a>
+        </div>
+        
               </div>
               </div>
             ) : (

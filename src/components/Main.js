@@ -11,6 +11,7 @@ class Main extends Component {
     this.state = {
       myArrContent: []
     }
+  window.alert(' You can start out as an author and suggest the first (or next) sentence of a story (for a nominal $0.01 equivalent cost, plus network gas fee). You can also weigh in on which sentence should go next by upvoting (again for $0.01 and gas fee)')
   }
 
 
@@ -157,12 +158,12 @@ class Main extends Component {
             	this.props.getArr(product.id.toNumber());         
               if (!product.purchased) {
                 return <Entry key={key} product={product} name={product.name} upvotes={product.upvotes} purchaseProduct ={this.props.purchaseProduct} getArr ={this.props.getArr} data={this.state.myArrContent}/>;
-                
               } else { 
                 return null;
               }
 
           })}
+          
           </tbody>
         </table>
         <br>
@@ -173,13 +174,17 @@ class Main extends Component {
         
         <h2>
   The Story
+  
 </h2>
 {this.props.products
   .filter(product => product.upvotes >= 3 && product.purchased) // Filter products with upvotes >= 3 and purchased flag set to true
   .map((product, key) => (
+    
     <React.Fragment key={key}>
       <span dangerouslySetInnerHTML={{ __html: product.name }} />
-      &nbsp; {}
+      &nbsp; {
+      }
+      
     </React.Fragment>
   ))}
 
@@ -214,6 +219,11 @@ class Main extends Component {
 
   <button
     onClick={(event) => {
+     
+        
+        window.alert('When the story is ended and goes for sale in the Story Marketplace')
+        window.alert('Can vote to end only once')
+  
       //console.log('Vote End:', this.marketplace.vote_end(price));
       const price = window.web3.utils.toWei("0.01", 'Ether');
       this.props.voteEnd(price);

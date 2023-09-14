@@ -4,6 +4,7 @@
   "description": "Exquisite Corpse",
   "author": "gregory@dappuniversity.com",
   "dependencies": {
+    "assert": "^2.1.0",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-es2015": "6.24.1",
@@ -13,11 +14,14 @@
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
     "chai-bignumber": "3.0.0",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "path-browserify": "^1.0.1",
     "react": "16.8.4",
     "react-bootstrap": "1.0.0-beta.5",
     "react-dom": "16.8.4",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^4.0.3",
     "solc": "^0.8.0",
+    "stream-browserify": "^3.0.0",
     "truffle": "^5.9.4",
     "typewriter-effect": "^2.19.0",
     "web3": "1.0.0-beta.55"
@@ -29,7 +33,6 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-
   },
   "eslintConfig": {
     "extends": "react-app"

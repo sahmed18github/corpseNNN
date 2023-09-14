@@ -1,5 +1,6 @@
 require('babel-register');
 require('babel-polyfill');
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 module.exports = {
   networks: {
@@ -15,5 +16,8 @@ module.exports = {
     solc: {
       version: "0.8.0",
     }
-  }
+  },
+  plugins: [
+		new NodePolyfillPlugin()
+	]
 }
